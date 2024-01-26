@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Documet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="col-5 m-3">
+        <h1>Form</h1>
+        <form name="form">
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" class="form-control" name="nome" id="nome">
+            </div>
+
+            <div class="form-group">
+                <label>Cognome</label>
+                <input type="text" class="form-control" name="cognome" id="cognome">
+            </div>
+
+            <div class="form-group">
+                <label>Telefono</label>
+                <input type="number" class="form-control" name="telefono" id="telefono">
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" name="email" id="email">
+            </div>
+
+            <div>
+                <button class="btn btn-primary mt-2">invia</button>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        const form = document.forms.form;
+        const button = document.querySelector("button");
+        nomeCognome = (nome, id) => {
+            let v = nome.split("");
+            let bool = true;
+            for (elem in v) {
+                if (!(v[elem] >= "A" && v[elem] <= "Z" || v[elem] >= "a" && v[elem] <= "z")) {
+                    form.querySelector(id).style.backgroundColor = "red";
+                    Event.preventDefault();
+                    bool = false;
+                }
+            }
+            if (bool)
+                form.querySelector(id).style.backgroundColor = "green";
+
+        }
+        telefono = (telefono, id) => {
+            let v = telefono.toString().split("");
+            let bool = true;
+            if (v.length != 10) {
+                form.querySelector(id).style.backgroundColor = "red";
+                Event.preventDefault();
+            }
+            else {
+                for (elem in v) {
+                    if (!(v[elem] >= "0" && v[elem] <= "9")) {
+                        form.querySelector(id).style.backgroundColor = "red";
+                        Event.preventDefault();
+                        bool = false;
+                    }
+                }
+                if (bool)
+                    form.querySelector(id).style.backgroundColor = "green";
+            }
+
+        }
+
+        email = (elem, id) => {
+            if (elem.includes("@") && elem[elem.length - 1] != "@")
+                form.querySelector(id).style.backgroundColor = "green";
+            else {
+                form.querySelector(id).style.backgroundColor = "red";
+                Event.preventDefault();
+            }
+        }
+
+        document.body.querySelector("#nome").onchange = () => {
+            nomeCognome(form.nome.value, "#nome");
+        }
+        document.body.querySelector("#cognome").onchange = () => {
+            nomeCognome(form.cognome.value, "#cognome");
+        }
+        document.body.querySelector("#telefono").onchange = () => {
+            telefono(form.telefono.value, "#telefono");
+        }
+        document.body.querySelector("#email").onchange = () => {
+            email(form.email.value, "#email");
+        }
+    </script>
+</body>
+
+</html>
